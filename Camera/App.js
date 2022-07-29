@@ -316,10 +316,10 @@ export default class App extends PureComponent {
   // Flashes the screen on capture
   triggerSnapAnimation() {
     Animated.sequence([
-      Animated.timing(this.state.overlayFlashOpacity, { toValue: 0.2, duration: 100 }),
-      Animated.timing(this.state.overlayFlashOpacity, { toValue: 0, duration: 50 }),
-      Animated.timing(this.state.overlayFlashOpacity, { toValue: 0.6, delay: 100, duration: 120 }),
-      Animated.timing(this.state.overlayFlashOpacity, { toValue: 0, duration: 90 }),
+      Animated.timing(this.state.overlayFlashOpacity, { toValue: 0.2, duration: 100,useNativeDriver:false }),
+      Animated.timing(this.state.overlayFlashOpacity, { toValue: 0, duration: 50,useNativeDriver: false }),
+      Animated.timing(this.state.overlayFlashOpacity, { toValue: 0.6, delay: 100, duration: 120,useNativeDriver:false }),
+      Animated.timing(this.state.overlayFlashOpacity, { toValue: 0, duration: 90,useNativeDriver:false }),
     ]).start();
   }
 
