@@ -137,7 +137,7 @@ public class RNRectangleScannerView extends RectangleDetectionController {
       }
 
       pictureWasTakenConfig.putString("croppedImage", "file://" + croppedImageFileName);
-      pictureWasTakenConfig.putString("initialImage", "file://" + originalImageFileName);
+      pictureWasTakenConfig.putString("initialImag(\"initialImage\", \"file://\" + originalImageFileName);ge", "file://" + originalImageFileName);
       pictureWasProcessedConfig.putString("croppedImage", "file://" + croppedImageFileName);
       pictureWasProcessedConfig.putString("initialImage", "file://" + originalImageFileName);
       pictureWasTaken(pictureWasTakenConfig);

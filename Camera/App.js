@@ -1,6 +1,6 @@
 import { PropTypes } from 'prop-types';
 import React, { PureComponent } from 'react';
-import { ActivityIndicator, Animated, Dimensions, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Animated, Dimensions, Platform, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View,Image } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import Scanner, { Filters, RectangleOverlay } from 'Camera';
 import ScannerFilters from './Filters';
@@ -288,11 +288,11 @@ export default class App extends PureComponent {
     this.setState({ takingPicture: true, processingImage: true });
     this.camera.current.capture();
     this.triggerSnapAnimation();
-
+    console.log(this.state)
     // If capture failed, allow for additional captures
     this.imageProcessorTimeout = setTimeout(() => {
       if (this.state.takingPicture) {
-        this.setState({ takingPicture: false });
+        this.setState({ takingPicture: true });
       }
     }, 100);
   }
@@ -304,14 +304,19 @@ export default class App extends PureComponent {
   }
 
   // The picture was taken and cached. You can now go on to using it.
-  onPictureProcessed = (event) => {
-    this.props.onPictureProcessed(event);
+  onPictureProcessed = ({croppedImage, initialImage}) => {
+    
+    // this.props.onPictureProcessed(croppedImage);
     this.setState({
       takingPicture: false,
       processingImage: false,
       showScannerView: this.props.cameraIsOn || false,
     });
+    console.log('croppedImage - '+croppedImage);
+    console.log('initialImage - '+initialImage);
+
   }
+  
 
   // Flashes the screen on capture
   triggerSnapAnimation() {
@@ -400,6 +405,11 @@ export default class App extends PureComponent {
                 onPress={this.capture}
               />
             </View>
+            <Image
+          source={{uri:"https://images.pexels.com/photos/674010/pexels-photo-674010.jpeg?auto=compress&cs=tinysrgb&w=1600"}}
+          style={{height:"100%",width:"100%"}}
+          resizeMode="cover"
+        />
             <View style={[styles.buttonActionGroup, { marginTop: 28 }]}>
               <View style={styles.buttonGroup}>
                 <TouchableOpacity
@@ -661,6 +671,7 @@ export default class App extends PureComponent {
       >
         <StatusBar backgroundColor="black" barStyle="light-content" hidden={Platform.OS !== 'android'} />
         {this.renderCameraView()}
+        
       </View>
     );
   }

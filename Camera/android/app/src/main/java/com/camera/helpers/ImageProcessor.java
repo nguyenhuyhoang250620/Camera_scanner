@@ -74,6 +74,7 @@ public class ImageProcessor extends Handler {
     Detect a rectangle in the current frame from the camera video
     */
     private void processPreviewFrame(Mat frame) {
+        Log.d("Hoang","huy1 " + frame.height()+" "+frame.width());
       rotateImageForScreen(frame);
       detectRectangleInFrame(frame);
       frame.release();
@@ -84,8 +85,11 @@ public class ImageProcessor extends Handler {
     Process a single frame from the camera video
     */
     private void processCapturedImage(Mat picture) {
+
         Mat capturedImage = Imgcodecs.imdecode(picture, Imgcodecs.CV_LOAD_IMAGE_UNCHANGED);
         picture.release();
+        Log.d("Hoang","huy " + capturedImage.height() +" "+capturedImage.width());
+
 
         Log.d(TAG, "processCapturedImage - imported image " + capturedImage.size().width + "x" + capturedImage.size().height);
 
@@ -104,6 +108,7 @@ public class ImageProcessor extends Handler {
     Detects a rectangle from the image and sets the last detected rectangle
     */
     private void detectRectangleInFrame(Mat inputRgba) {
+
         ArrayList<MatOfPoint> contours = findContours(inputRgba);
         Size srcSize = inputRgba.size();
         this.lastDetectedRectangle = getQuadrilateral(contours, srcSize);
@@ -129,6 +134,7 @@ public class ImageProcessor extends Handler {
             Mat croppedCapturedImage = this.lastDetectedRectangle.cropImageToRectangleSize(capturedImage);
             doc = fourPointTransform(croppedCapturedImage, this.lastDetectedRectangle.getPointsForSize(croppedCapturedImage.size()));
             croppedCapturedImage.release();
+
         } else {
             doc = new Mat(capturedImage.size(), CvType.CV_8UC4);
             capturedImage.copyTo(doc);

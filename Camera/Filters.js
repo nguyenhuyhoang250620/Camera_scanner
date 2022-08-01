@@ -90,7 +90,7 @@ export default class ScannerFilters extends Component {
             activeOpacity={0.8}
           >
             <Icon
-              name="add-outline"
+              name="alarm-outline"
               size={40}
               color="white"
               style={{ color: 'white',
